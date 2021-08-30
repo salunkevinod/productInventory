@@ -1,0 +1,63 @@
+<div class="container p-3 m-3">
+    <div class="row col s8">
+        <form class="example-form" #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                <td>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Product Name</mat-label>
+                    <input matInput name="productName" required [(ngModel)]="productObj.productName" #productName="ngModel">
+                    </mat-form-field>
+                </td>
+                </tr>
+
+                <tr>
+                    <td><mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Product Categoty</mat-label>
+                        <input matInput name="productCategory" required [(ngModel)]="productObj.productCategory">
+                    </mat-form-field></td>
+                </tr>
+            </table>
+          
+            <p>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Product Description</mat-label>
+                <input matInput #message maxlength="256" required name="ProductDesc" [(ngModel)]="productObj.productDescription" placeholder="Product Description...">
+                <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+              </mat-form-field>
+            </p>
+          
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Quantity</mat-label>
+                            <input type="number" required name="productQuantity" [(ngModel)]="productObj.productQuantity" ngModel matInput maxlength="2" min="1">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        
+            <table class="example-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Product Url</mat-label>
+                            <input type="url" required name="productImageUrl" pattern="https?://.+"  #productUrl="ngModel" [(ngModel)]="productObj.productUrl" matInput placeholder="https://images.unsplash.com/">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        <mat-divider></mat-divider>
+        <section>
+          <div class="example-button-row">
+            <button mat-raised-button color="warn" [disabled]="!productForm.valid" type="submit">{{editMode?'Update':'Submit'}}</button>
+            <button mat-raised-button type="reset">Reset</button>
+            <button *ngIf="editMode" mat-raised-button type="button" color="pink" (click)="navigateToAddProduct()">Add Product</button>
+          </div>
+        </section>
+          </form>
+    </div>
+</div>
+
+  

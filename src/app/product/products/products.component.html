@@ -1,0 +1,50 @@
+<div class="container p-3 m-3 col s12" *ngIf="products && products.length > 0">
+    <div class="row col s12 width-100">
+            <div class="search-hero">
+              <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Product">
+            </div>
+    </div>
+</div>
+
+<ul class="flex-container" *ngIf="products && products.length > 0">
+    <li class="flex-item" *ngFor="let product of pageSlice| filter:searchText;let i = index;"> 
+        <mat-card class="example-card">
+            <mat-card-header>
+            <div mat-card-avatar class="example-header-image" [ngStyle]="{'background-image': getUrl(product.productUrl)}"></div>
+            <mat-card-title>{{product.productName}}</mat-card-title>
+            <mat-card-subtitle>{{product.productCategory}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image [src]="product.productUrl" alt="{{product.productName}}">
+            <mat-card-content>
+            <p>
+                {{product.productDescription}}
+            </p>
+            </mat-card-content>
+            <mat-card-actions>
+            <button mat-button (click)="onEditProduct(products.indexOf(product))">EDIT</button>
+            <button mat-button (click)="openDialog(products.indexOf(product))">DELETE</button>
+            </mat-card-actions>
+      </mat-card>
+    </li>
+</ul>
+<mat-paginator *ngIf="products && products.length > 0" [length]=products.length
+              [pageSize]="3"
+              [pageSizeOptions]="[3,5,10,15,25,100]"
+              (page)="onPageChange($event)"
+              aria-label="Select page">
+</mat-paginator>
+<div class="container p-3 m-3 col s12" *ngIf="products && products.length < 1">
+    <div class="row col s12 width-100">
+        <div class="alert alert-primary width-100" role="alert">
+            No product available !
+          </div>
+    </div>
+</div>
+
+<div class="container p-3 m-3 col s12" *ngIf="error">
+    <div class="row col s12 width-100">
+        <div class="alert alert-danger width-100" role="alert">
+            {{error}}
+          </div>
+    </div>
+</div>
